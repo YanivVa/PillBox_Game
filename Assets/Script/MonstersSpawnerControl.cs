@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MonstersSpawnerControl : MonoBehaviour {
 
@@ -11,56 +9,75 @@ public class MonstersSpawnerControl : MonoBehaviour {
     public GameObject target;
     public ScoreManager SM;
     float score;
-    float wait;
+    public float wait;
     float spawn;
-	// Use this for initialization
-	void Start () {
+    bool spawnAllowed1;
+ 
+    private float cycleCounter = 0;
+    public float cycleTime;
+
+    // Use this for initialization
+    void Start () {
         spawn = 1;
         wait = 3f;
         SM = target.GetComponent<ScoreManager>();
         score = SM.pointsCount + 1;
-        spawnAllowed = true;
         
-        StartCoroutine(SpawnGrow());
+        spawnAllowed1 = true;
+        
+
+
+        //StartCoroutine(SpawnGrow());
 	}
-    private void Update()
+  
+    private void FixedUpdate()
     {
         score = SM.pointsCount + 1;
-        
-    }
 
 
-    IEnumerator SpawnGrow()
-    {
-        while (spawnAllowed)
-        {
-            
-            Invoke("SpawnAMonster",0.1f);
-            
-            yield return new WaitForSeconds(wait);
-
+        if (spawnAllowed1){
+            cycleCounter += Time.deltaTime;
+            if (cycleCounter >= cycleTime)
+            {
+                cycleCounter = 0;
+                Invoke("SpawnAMonster", 0.1f);
+            }
         }
-
-        yield return null;
-    }
-
-	void SpawnAMonster()
-	{
-       
-			randomSpawnPoint = Random.Range (0, spawnPoints.Length);
-			randomMonster = Random.Range (0, monsters.Length);
-			Instantiate (monsters [randomMonster], spawnPoints [randomSpawnPoint].position,
-				Quaternion.identity);
-        if (wait < 1)
+        //by time spawn grow and stop at 1
+        if (cycleTime <= 1f)
         {
-            wait = 1.3f;
+            cycleTime = 1f;
         }
         else
         {
-            wait -= 0.03f;
-
+            cycleTime -= 0.0003f;
         }
-        spawn += 1;
+        
+    }
+
+    public void StopSpwan()
+    {
+        spawnAllowed1 = false;
+        Debug.Log("false");
+    }
+    public void StartSpwan()
+    {
+        spawnAllowed1 = true;
+        Debug.Log("true");
+    }
+  
+
+	void SpawnAMonster()
+	{
+        Debug.Log("Spawn");
+			randomSpawnPoint = Random.Range (0, spawnPoints.Length);
+			randomMonster = Random.Range (0, monsters.Length);
+
+       
+            Instantiate(monsters[randomMonster], spawnPoints[randomSpawnPoint].position,
+                Quaternion.identity);
+        
+        
     }
 
 }

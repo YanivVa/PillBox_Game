@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+
 public class MonsterControl : MonoBehaviour {
+
     public ScoreManager SM;
     Rigidbody2D rb;
 	public GameObject target;
@@ -10,8 +13,11 @@ public class MonsterControl : MonoBehaviour {
 	Vector3 directionToTarget;
 	public GameObject explosion;
     public AdShow ad;
+    public bool freez;
+
 	// Use this for initialization
 	void Start () {
+        freez = true;
         target = GameObject.Find("Player");
         SM = target.GetComponent<ScoreManager>();
         rb = GetComponent<Rigidbody2D> ();
@@ -52,7 +58,7 @@ public class MonsterControl : MonoBehaviour {
   
 	void MoveMonster ()
 	{
-		if (target != null) {
+		if (target != null && (freez)) {
 			directionToTarget = (target.transform.position - transform.position).normalized;
 			rb.velocity = new Vector2 (directionToTarget.x * moveSpeed,
 										directionToTarget.y * moveSpeed);
@@ -65,5 +71,36 @@ public class MonsterControl : MonoBehaviour {
     {
         ad.Adshower();
         SceneManager.LoadScene("Opening", LoadSceneMode.Single);
+    }
+
+
+    // frezzing function
+    /*public void Freezing()
+    {
+        StartCoroutine(freezed());
+
+    }
+
+    IEnumerator freezed()
+    {
+
+        freez = false;
+        yield return new WaitForSeconds(3f);
+        freez = true;
+
+        yield return null;
+    }
+    // frezzing function end //
+    */
+
+    public void Freezing()
+    {
+        freez = false;
+        Invoke("count", 3f);
+    }
+
+    public void count()
+    {
+        freez = true;
     }
 }
