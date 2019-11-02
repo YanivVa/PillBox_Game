@@ -20,12 +20,12 @@ public class NPCManager : MonoBehaviour
 
     private Vector3 randomizeSpawnPoint()
     {
-        bool xMainAnchor = (Random.Range(0, 1) > 0.5) ? true : false ;
+        bool xMainAnchor = (Random.Range(0, 2) == 0) ? true : false ;
 
         if (xMainAnchor)
         {
             float ySpawnPoint = Random.Range(-yAnchor, yAnchor);
-            if (Random.Range(0, 1) == 0)
+            if (Random.Range(0, 2) == 0)
             {
                 // right side
                 return new Vector3(xAnchor, ySpawnPoint, 0);
@@ -37,7 +37,7 @@ public class NPCManager : MonoBehaviour
         } else
         {
             float xSpawnPoint = Random.Range(-xAnchor, xAnchor);
-            if (Random.Range(0, 1) == 0)
+            if (Random.Range(0, 2) == 0)
             {
                 // up side
                 return new Vector3(xSpawnPoint, yAnchor, 0);
