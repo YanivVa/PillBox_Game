@@ -67,14 +67,21 @@ public class NPCManager : MonoBehaviour
 
     public void freezeNpcs()
     {
-        powerUpsPanel.SetActive(!freeze);
         freeze = !freeze;
-        GameObject[] npcs = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach(GameObject npc in npcs)
+        if (freeze)
         {
-            MonsterControl MC = (MonsterControl)npc.GetComponent(typeof(MonsterControl));
-            MC.freezeNpc();
+            Time.timeScale = 0;
+        } else
+        {
+            Time.timeScale = 1;
         }
+        powerUpsPanel.SetActive(freeze);
+        //GameObject[] npcs = GameObject.FindGameObjectsWithTag("Enemy");
+        //foreach(GameObject npc in npcs)
+        //{
+        //    MonsterControl MC = (MonsterControl)npc.GetComponent(typeof(MonsterControl));
+        //    MC.freezeNpc();
+        //}
         //MSC.StartSpwan();
         //StartCoroutine(SpawnCunt());
 
