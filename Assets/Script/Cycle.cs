@@ -8,10 +8,14 @@ public class Cycle : MonoBehaviour
     public float speed = 50f;
     int isleft;
     public GameObject direction;
+    private GameObject gameMgr;
+    private NPCManager npcMgr;
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameMgr = GameObject.FindGameObjectWithTag("GameController");
+        npcMgr = (NPCManager)gameMgr.GetComponent(typeof(NPCManager));
+
         isleft = 1;
       
     }
@@ -19,7 +23,10 @@ public class Cycle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(new Vector3(0, 0, speed * Time.deltaTime*isleft));
+        if (!npcMgr.freeze)
+        {
+            transform.Rotate(new Vector3(0, 0, speed * Time.deltaTime * isleft));
+        }
     }
 
     public void ChangeDirection()

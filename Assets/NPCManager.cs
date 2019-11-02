@@ -10,6 +10,8 @@ public class NPCManager : MonoBehaviour
     float spawnCounter = 0;
     float xAnchor = 11;
     float yAnchor = 6;
+    public GameObject powerUpsPanel;
+    public bool freeze = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +54,7 @@ public class NPCManager : MonoBehaviour
     void Update()
     {
         spawnCounter += Time.deltaTime;
-        if (spawnCounter >= npcSpawnRate)
+        if (spawnCounter >= npcSpawnRate && !freeze)
         {
             spawnCounter = 0;
             int randomNpcIndex = Random.Range (0, npcPrefabs.Length);
@@ -62,5 +64,20 @@ public class NPCManager : MonoBehaviour
         }
     }
 
+
+    public void freezeNpcs()
+    {
+        powerUpsPanel.SetActive(!freeze);
+        freeze = !freeze;
+        GameObject[] npcs = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(GameObject npc in npcs)
+        {
+            MonsterControl MC = (MonsterControl)npc.GetComponent(typeof(MonsterControl));
+            MC.freezeNpc();
+        }
+        //MSC.StartSpwan();
+        //StartCoroutine(SpawnCunt());
+
+    }
 
 }

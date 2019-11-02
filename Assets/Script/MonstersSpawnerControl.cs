@@ -16,8 +16,16 @@ public class MonstersSpawnerControl : MonoBehaviour {
     private float cycleCounter = 0;
     public float cycleTime;
 
+    private GameObject gameMgr;
+    private NPCManager npcMgr;
+
     // Use this for initialization
     void Start () {
+        gameMgr = GameObject.FindGameObjectWithTag("GameController");
+        npcMgr = (NPCManager)gameMgr.GetComponent(typeof(NPCManager));
+
+
+
         spawn = 1;
         wait = 3f;
         SM = target.GetComponent<ScoreManager>();
@@ -34,7 +42,8 @@ public class MonstersSpawnerControl : MonoBehaviour {
     {
         score = SM.pointsCount + 1;
 
-
+        spawnAllowed1 = !npcMgr.freeze;
+        Debug.Log("Spawn allowed: " + spawnAllowed1);
         if (spawnAllowed1){
             cycleCounter += Time.deltaTime;
             if (cycleCounter >= cycleTime)

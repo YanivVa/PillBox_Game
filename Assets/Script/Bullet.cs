@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float movementSpeed = 10f;
+    private float movementSpeed;
     // Start is called before the first frame update
+    private GameObject gameMgrObj;
+    private GameManager gameMgr;
 
-    
     private void Start()
     {
-       
+        gameMgrObj = GameObject.FindGameObjectWithTag("GameController");
+        gameMgr = (GameManager)gameMgrObj.GetComponent(typeof(GameManager));
+
+        movementSpeed = gameMgr.projectileSpeed;
     }
     void Update()
     {
