@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
 
     public GameObject popup;
+    public GameObject gamePlayCanvas;
     // Start is called before the first frame update
     void Start()
     {

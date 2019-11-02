@@ -23,11 +23,11 @@ public class Shoot : MonoBehaviour
     {
 
         fireCounter += Time.deltaTime;
-            if (fireCounter >= fireTime)
-            {
+        if (fireCounter >= fireTime)
+        {
             fireCounter = 0;
-                Invoke("LaunchProjectile", 0.1f);
-            }
+            Invoke("LaunchProjectile", 0.1f);
+        }
       
     }
     void LaunchProjectile()
