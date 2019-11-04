@@ -20,8 +20,7 @@ public class PlayerMgr : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         gameMgrObj = GameObject.FindGameObjectWithTag("GameController");
         gameMgr = (GameManager)gameMgrObj.GetComponent(typeof(GameManager));
         npcMgr = (NPCManager)gameMgrObj.GetComponent(typeof(NPCManager));
@@ -36,16 +35,18 @@ public class PlayerMgr : MonoBehaviour
         if (!npcMgr.freeze)
         {
             transform.Rotate(new Vector3(0, 0, speed * Time.deltaTime * isleft));
+            /*
             fireCounter += Time.deltaTime;
             if (fireCounter >= fireTime)
             {
                 fireCounter = 0;
                 Invoke("LaunchProjectile", 0.1f);
             }
+            */
         }
     }
 
-    void LaunchProjectile()
+    public void LaunchProjectile()
     {
         GameObject instBullet = Instantiate(bullet, spawnPoint.position, transform.rotation) as GameObject;
     }
